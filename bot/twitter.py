@@ -157,7 +157,7 @@ def build_header(  # pylint: disable=R0914
         user_picture = mask_circle_transparent(FALLBACK_PROFILE_PICTURE)
 
     # crop a centered square
-    if not user_picture.width == user_picture.height:
+    if user_picture.width != user_picture.height:
         side = min(user_picture.width, user_picture.height)
         left = (user_picture.width - side) // 2
         upper = (user_picture.height - side) // 2

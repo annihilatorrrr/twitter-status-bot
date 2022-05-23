@@ -66,10 +66,8 @@ async def handle_inline_query(update: Update, _: CCT) -> int:
         int: The next state.
     """
     inline_query = cast(InlineQuery, update.inline_query)
-    query = inline_query.query
-
     timezones = pytz.all_timezones
-    if query:
+    if query := inline_query.query:
         timezones.sort(key=lambda tz: fuzz.ratio(tz, query), reverse=True)
     else:
         timezones.sort()

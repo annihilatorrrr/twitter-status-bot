@@ -57,14 +57,13 @@ async def handle_sticker(update: Update, context: CCT) -> int:
     sticker = cast(Sticker, message.sticker)
     user_data = cast(UserData, context.user_data)
 
-    deleted = user_data.sticker_file_ids.pop(sticker.file_unique_id, None)
-    if not deleted:
+    if deleted := user_data.sticker_file_ids.pop(sticker.file_unique_id, None):
+        await message.reply_text("Sticker successfully deleted.")
+
+    else:
         await message.reply_text(
             "Sorry, this is not a sticker that you have sent before. Aborting operation."
         )
-    else:
-        await message.reply_text("Sticker successfully deleted.")
-
     await remove_reply_markup(context)
     return ConversationHandler.END
 

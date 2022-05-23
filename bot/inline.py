@@ -87,9 +87,7 @@ async def inline(update: Update, context: CCT) -> None:
     """
     user_data = cast(UserData, context.user_data)
     inline_query = cast(InlineQuery, update.inline_query)
-    query = inline_query.query
-
-    if query:
+    if query := inline_query.query:
         task = user_data.inline_query_task
         if task and not task.done():
             cast(Event, user_data.inline_query_event).set()
